@@ -1,3 +1,7 @@
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
+
+
 #include <iostream>
 #include <string>
 using namespace std  ;
@@ -190,18 +194,4 @@ public:
 
 
 };
-
-
-
-
-int main(){
-    // pruebasssssss
-
-    
-
-    cout << endl ; 
-    return 0 ; 
-}
-
-
-
+#endif
