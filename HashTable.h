@@ -131,6 +131,23 @@ public:
         }
 
     }
+    bool Existe(int key){
+
+        int bucket = Hash(key);
+
+        NodeBucket* temp = Lista_Buckets[bucket];
+
+        while(temp != nullptr){
+
+            if(temp->clave == key){
+                return true;
+            }
+
+            temp = temp->next;
+        }
+
+        return false;
+    }
 
 
     data_type buscar(int key){
