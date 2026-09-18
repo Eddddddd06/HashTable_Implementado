@@ -8,15 +8,15 @@ using namespace std  ;
 
 
 
-template <typename data_type>
+template <typename key_type ,typename data_type>
 class HashTable{
 private:
     struct NodeBucket{ 
         data_type valor ; 
-        int clave ; 
+        key_type clave ; 
         NodeBucket* next;
 
-        NodeBucket(int key,data_type val){
+        NodeBucket(key_type key,data_type val){
             valor = val ; 
             clave = key ; 
             next = nullptr ; 
@@ -29,9 +29,22 @@ private:
     float Umbral ; 
 
 
-    int Hash(int key){
+    int Hash(int key){ // para enteros
         return ((key % N_Buckets) + N_Buckets) % N_Buckets;
     }   
+
+    int Hash(string key){ // para strings
+        long long hash = 0;
+        for(char c : key){
+            hash = (hash*31 + c)% N_Buckets;
+        }
+        return hash;
+    }   
+
+    int Hash(char key){ // para char
+        int valor = static_cast<int>(key);
+        return ((valor % N_Buckets) + N_Buckets) % N_Buckets;
+    }
     
     void Rehashing(){
         NodeBucket** lista_vieja = Lista_Buckets ; 
@@ -68,7 +81,6 @@ private:
 
                 Nodo_BucketBorrar = siguiente ; 
 
-
             }
                   
         }
@@ -91,7 +103,7 @@ public:
         
     }
     
-    void Insertar(int key , data_type val){
+    void Insertar(key_type key , data_type val){
         
         int Bucket = Hash(key) ; 
         NodeBucket* temp = Lista_Buckets[Bucket] ; 
@@ -131,7 +143,7 @@ public:
         }
 
     }
-    bool Existe(int key){
+    bool Existe(key_type key){
 
         int bucket = Hash(key);
 
@@ -150,7 +162,7 @@ public:
     }
 
 
-    data_type buscar(int key){
+    data_type buscar(key_type key){
         int bucket = Hash(key);
         NodeBucket* temp = Lista_Buckets[bucket];
 
@@ -174,7 +186,7 @@ public:
         return data_type{};
     }
 
-    void Eliminar(int key){
+    void Eliminar(key_type key){
         int bucket = Hash(key);
         NodeBucket* temp = Lista_Buckets[bucket] ; 
 
