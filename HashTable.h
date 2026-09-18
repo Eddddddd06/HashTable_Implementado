@@ -30,8 +30,8 @@ private:
 
 
     int Hash(int key){
-        return key % N_Buckets ; 
-    }
+        return ((key % N_Buckets) + N_Buckets) % N_Buckets;
+    }   
     
     void Rehashing(){
         NodeBucket** lista_vieja = Lista_Buckets ; 
@@ -155,13 +155,13 @@ public:
         NodeBucket* temp = Lista_Buckets[bucket];
 
         if (temp == nullptr){
-            cout << "No existe esta llave " << key << " en la tabla\n" ; 
+            //cout << "No existe esta llave " << key << " en la tabla\n" ; 
             return data_type{};
         }
 
         while(temp != nullptr){
             if (temp->next == nullptr && temp->clave != key){ // no lo encontro
-                cout << "No existe esta llave " << key << " en la tabla\n" ; 
+                //cout << "No existe esta llave " << key << " en la tabla\n" ; 
                 return data_type{};
             }
             if (temp->clave == key){
@@ -170,7 +170,7 @@ public:
             temp = temp->next ; 
         }
         
-        cout << "No existe esta llave " << key << " en la tabla\n" ; 
+        // cout << "No existe esta llave " << key << " en la tabla\n" ; 
         return data_type{};
     }
 
